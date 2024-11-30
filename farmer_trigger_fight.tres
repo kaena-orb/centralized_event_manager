@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="TriggerFight" load_steps=2 format=3 uid="uid://dcjqf2fcub20h"]
+
+[ext_resource type="Script" path="res://trigger_fight.gd" id="1_w2jph"]
+
+[resource]
+script = ExtResource("1_w2jph")
+is_target = true
+is_emitter = true
+triggered = false

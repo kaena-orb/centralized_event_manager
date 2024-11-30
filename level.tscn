@@ -1,0 +1,75 @@
+[gd_scene load_steps=13 format=3 uid="uid://bb5cw5sbt1pvi"]
+
+[ext_resource type="Script" path="res://level.gd" id="1_vinui"]
+[ext_resource type="Script" path="res://CharacterBody2D.gd" id="1_ydnqx"]
+[ext_resource type="Script" path="res://entity.gd" id="2_y6gdg"]
+[ext_resource type="Resource" uid="uid://s80vi1n7660k" path="res://print.tres" id="4_i3yvg"]
+[ext_resource type="Resource" uid="uid://dcjqf2fcub20h" path="res://farmer_trigger_fight.tres" id="5_sqape"]
+
+[sub_resource type="Gradient" id="Gradient_p2lnb"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_48mnk"]
+gradient = SubResource("Gradient_p2lnb")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_smdyg"]
+size = Vector2(64, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t0k60"]
+size = Vector2(2033, 19)
+
+[sub_resource type="Gradient" id="Gradient_l2k0f"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vdb0e"]
+gradient = SubResource("Gradient_l2k0f")
+height = 20
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l14pu"]
+size = Vector2(20, 101)
+
+[node name="level" type="Node2D"]
+script = ExtResource("1_vinui")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+position = Vector2(78, 0)
+collision_mask = 2
+script = ExtResource("1_ydnqx")
+
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+texture = SubResource("GradientTexture2D_48mnk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("RectangleShape2D_smdyg")
+
+[node name="floor" type="StaticBody2D" parent="."]
+position = Vector2(0, 48)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="floor"]
+position = Vector2(985.5, 0.5)
+shape = SubResource("RectangleShape2D_t0k60")
+
+[node name="Sprite2D" type="Sprite2D" parent="floor"]
+position = Vector2(985, 4.76837e-07)
+scale = Vector2(31.7812, 1)
+texture = SubResource("GradientTexture2D_vdb0e")
+
+[node name="boss1" type="Area2D" parent="."]
+script = ExtResource("2_y6gdg")
+events = Array[Resource("res://event.gd")]([ExtResource("5_sqape")])
+
+[node name="boss2" type="Area2D" parent="."]
+script = ExtResource("2_y6gdg")
+events = Array[Resource("res://event.gd")]([ExtResource("5_sqape")])
+
+[node name="enter_boss_fight" type="Area2D" parent="."]
+collision_layer = 2
+script = ExtResource("2_y6gdg")
+events = Array[Resource("res://event.gd")]([ExtResource("4_i3yvg"), ExtResource("5_sqape")])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enter_boss_fight"]
+position = Vector2(297, -12.5)
+shape = SubResource("RectangleShape2D_l14pu")
+
+[connection signal="body_entered" from="enter_boss_fight" to="enter_boss_fight" method="_on_body_entered"]

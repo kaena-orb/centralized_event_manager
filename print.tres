@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Print" load_steps=2 format=3 uid="uid://s80vi1n7660k"]
+
+[ext_resource type="Script" path="res://print.gd" id="1_j5kq4"]
+
+[resource]
+script = ExtResource("1_j5kq4")
+is_target = true
+is_emitter = true
+triggered = false
